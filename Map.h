@@ -1,6 +1,9 @@
 #ifndef MAP_H__
 #define MAP_H__
 
+constexpr size_t sizeX = 100;
+constexpr size_t sizeY = 100;
+
 class Map
 {
 public:

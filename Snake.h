@@ -1,6 +1,7 @@
 #ifndef _SNAKE_H__
 #define _SNAKE_H__
 #include <Map.h>
+#include <iostream>
 
 Map *m = Map::getMap();
 
@@ -9,20 +10,21 @@ class Node
 public:
 	Node() : x(0), y(0), next(nullptr) { }
 	Node(int xx, int yy) : x(xx), y(yy) { }
-private:
-	int x, int y;
+//private:
+	int x;
+	int y;
 	Node* next;
 	Node* last;
-}
+};
 
 class Snake
 {
 public:
-	Snake() : len(0), Node() { }
+	Snake() : len(0) { }
 	void eatFood(size_t, size_t);
 	void eatSelf();
 	void touchWall();
-	void goAhead();
+	void goAhead(size_t, size_t);
 	void judge(size_t, size_t);
 private:
 	Node *head;
@@ -30,7 +32,7 @@ private:
 	size_t len;
 };
 
-void Snake::eatFood()
+void Snake::eatFood(size_t x, size_t y)
 {
 	Node *newBody = new Node(x, y);
 	newBody->next = head;
@@ -39,19 +41,19 @@ void Snake::eatFood()
 	++len;
 }
 
-void eatSelf()
+void Snake::eatSelf()
 {	
-	//½áÊø´Ë¾Ö
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Ë¾ï¿½
 }
 
-void touchWall()
+void Snake::touchWall()
 {
-	//½áÊø´Ë¾Ö
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Ë¾ï¿½
 }
 
-void goAhead(size_t xx, size_t yy)
+void Snake::goAhead(size_t xx, size_t yy)
 {
-	*tail = Food(xx,yy);
+	tail = new Node(xx,yy);
 	tail->next = head;
 	head->last = tail;
 	tail = tail->last;
@@ -60,7 +62,8 @@ void goAhead(size_t xx, size_t yy)
 
 void Snake::judge(size_t x, size_t y)
 {
-	switch (m->mapMatrix[x][y] == 0)
+	switch (m->mapMatrix[x][y])
+	{
 	case 0:	
 		touchWall();
 	case 1:
@@ -69,6 +72,7 @@ void Snake::judge(size_t x, size_t y)
 		eatFood(x, y);
 	default:
 		goAhead(x, y);
+	}
 }
 
 

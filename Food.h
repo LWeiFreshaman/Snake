@@ -5,13 +5,17 @@
 #include<ctime>
 #include "Map.h"
 
+//extern const size_t sizeX;
+//extern const size_t sizeY;
+
 Map* m = Map::getMap();
 
 class Food
 {
 public:
+	Food() = default;
 	Food(size_t xx, size_t yy);
-	Food(Food);
+	Food(const Food&);
 	Food& operator=(Food);
 	bool operator==(Food);
 	void ate();
@@ -26,7 +30,7 @@ Food::Food(size_t xx, size_t yy)
 	
 }
 
-Food::Food(Food f)
+Food::Food(const Food& f)
 	: x(f.x), y(f.y) 
 {
 	
@@ -50,7 +54,7 @@ Food random(size_t sizeX, size_t sizeY)
 	return Food(rand() % sizeX + 1, rand() % sizeY + 1);
 }
 
-Food::ate()
+void Food::ate()
 {
 	Food tmp;
 
